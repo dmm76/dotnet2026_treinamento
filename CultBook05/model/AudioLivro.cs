@@ -24,6 +24,12 @@ public class AudioLivro : Livro
         Narrador = narrador;
     }
 
+    //Obrigatoria a implementação do método abstrato da classe base Livro
+    public override double CalcularPrecoTotal()
+    {
+        return Preco;
+    }
+
     public override string ToString()
     {
         return $"Tipo: ÁudioLivro\n"

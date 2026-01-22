@@ -13,18 +13,22 @@ public class ItemDePedido
     {
         Livro = livro;
         Quantidade = quantidade;
-        Preco = livro.Preco;
+        //ajuste para o lab06 - respeita LivroFisico (preco + frete) e Ebook (preco)
+        Preco = livro.CalcularPrecoTotal();
     }
 
     public void Mostrar()
     {
         Console.WriteLine(
-            $"Livro: {Livro.Titulo} | Quantidade: {Quantidade} | Preço Unitário: {Preco}"
+            $"Livro: {Livro.Titulo} | Quantidade: {Quantidade} | Preço Unitário: {Preco} | Subtotal: {Preco * Quantidade}"
         );
     }
 
     public override string ToString()
     {
-        return $"Livro:\n{Livro}\n" + $"Quantidade: {Quantidade}\n" + $"Preço: {Preco}";
+        return $"Livro:\n{Livro}\n"
+            + $"Quantidade: {Quantidade}\n"
+            + $"Preço Unitário: {Preco:F2}\n"
+            + $"Subtotal: {Preco * Quantidade:F2}";
     }
 }

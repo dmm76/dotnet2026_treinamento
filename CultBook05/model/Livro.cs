@@ -1,6 +1,6 @@
 namespace CultBook05.model;
 
-public class Livro
+public abstract class Livro
 {
     public string Isbn { get; set; }
     public string Titulo { get; set; }
@@ -34,6 +34,9 @@ public class Livro
         DataCadastro = dataCadastro;
         Categoria = categoria;
     }
+
+    // Atualizacao Lab06
+    public abstract double CalcularPrecoTotal();
 
     public void Mostrar()
     {

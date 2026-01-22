@@ -26,6 +26,12 @@ class ContaEspecial : ContaCorrente
         }
     }
 
+    public override double ConsultarSaldo()
+    {
+        Console.WriteLine("Consultando saldo da Conta Especial...");
+        return Saldo + Limite;
+    }
+
     public override string ToString()
     {
         return $"ContaEspecial [Número: {Numero}, Titular: {Titular}, Saldo: {Saldo}, Limite: {Limite}]";

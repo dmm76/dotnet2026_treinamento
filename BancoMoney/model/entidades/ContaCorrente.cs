@@ -39,6 +39,7 @@ class ContaCorrente
 
     public virtual double ConsultarSaldo()
     {
+        Console.WriteLine("Consultando saldo da Conta Corrente...");
         return Saldo;
     }
 

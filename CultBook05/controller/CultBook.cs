@@ -140,8 +140,6 @@ class Program
             Console.WriteLine("0 - Sair");
             Console.Write("Escolha uma opção: ");
 
-            // int opcao = int.Parse(Console.ReadLine());
-            Console.Write("Escolha uma opção: ");
             string? entrada = Console.ReadLine();
 
             // validação de entrada => se der certo pega o valor de entrada e da saida pra opcao
@@ -154,7 +152,7 @@ class Program
             switch (opcao)
             {
                 case OP_LOGIN:
-                    Console.WriteLine("Login - Dadivos Mock");
+                    Console.WriteLine("Login - Dados Mock");
                     clienteLogado = new Cliente(
                         "Douglas",
                         "douglas",

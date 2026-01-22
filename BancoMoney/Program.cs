@@ -13,12 +13,19 @@ class Program
         conta.Sacar(200.0);
         conta.Sacar(400.0);
         Console.WriteLine($"Saldo da conta corrente: {conta.ConsultarSaldo()}");
-        Console.WriteLine(conta.ToString());
+        Console.WriteLine(conta);
+        Console.WriteLine();
 
         conta2.Depositar(200.0);
         conta2.Sacar(250.0);
         Console.WriteLine($"Saldo da conta especial: {conta2.ConsultarSaldo()}");
+        Console.WriteLine(conta2);
+        Console.WriteLine();
 
-        Console.WriteLine(conta2.ToString());
+        Agencia agencia = new Agencia();
+        agencia.AbrirConta(conta);
+        agencia.AbrirConta(conta2);
+        double totalDepositos = agencia.CalcularTotalGeral();
+        Console.WriteLine($"Total de depósitos na agência: {totalDepositos}");
     }
 }
