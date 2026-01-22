@@ -4,8 +4,11 @@ class ContaCorrente
 {
     public int Numero { get; set; }
     public string Titular { get; set; }
-    public double Saldo { get; private set; }
-    private string Senha { get; set; }
+    public double Saldo { get; set; }
+    public string Senha { get; set; }
+
+    public ContaCorrente()
+        : this(0, "", "") { }
 
     public ContaCorrente(int numero, string titular, string senha)
     {
@@ -15,10 +18,17 @@ class ContaCorrente
         Saldo = 0.0;
     }
 
-    public void Sacar(double valor)
+    public virtual void Sacar(double valor)
     {
-        Saldo -= valor;
-        Console.WriteLine("Saque realizado com sucesso!");
+        if (valor <= Saldo)
+        {
+            Saldo -= valor;
+            Console.WriteLine("Saque realizado com sucesso!");
+        }
+        else
+        {
+            Console.WriteLine("Saldo insuficiente.");
+        }
     }
 
     public void Depositar(double valor)
@@ -27,7 +37,7 @@ class ContaCorrente
         Console.WriteLine("Depósito realizado com sucesso!");
     }
 
-    public double ConsultarSaldo()
+    public virtual double ConsultarSaldo()
     {
         return Saldo;
     }
@@ -36,5 +46,10 @@ class ContaCorrente
     {
         Console.WriteLine("Validando senha...");
         return Senha == senhaDigitada;
+    }
+
+    public override string ToString()
+    {
+        return $"ContaCorrente [Número: {Numero}, Titular: {Titular}, Saldo: {Saldo}]";
     }
 }

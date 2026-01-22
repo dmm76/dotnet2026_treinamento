@@ -7,17 +7,18 @@ class Program
 {
     static void Main(string[] args)
     {
-        ContaCorrente conta = new ContaCorrente();
-        ContaCorrente conta2 = new ContaCorrente();
-        conta2.Depositar(200.0);
-
-        conta.Numero = 1234;
-        conta.Titular = "Lindolfo Pires";
-        conta.Senha = "minhaSenhaSegura";
-
+        ContaCorrente conta = new ContaCorrente(5679, "Paula Cristovão", "senha123");
+        ContaCorrente conta2 = new ContaEspecial(5678, "Ana Silva", "senha123", 1000.0);
         conta.Depositar(500.0);
         conta.Sacar(200.0);
-        conta.Sacar(70.0);
-        Console.WriteLine("Saldo inicial: " + conta.ConsultarSaldo());
+        conta.Sacar(400.0);
+        Console.WriteLine($"Saldo da conta corrente: {conta.ConsultarSaldo()}");
+        Console.WriteLine(conta.ToString());
+
+        conta2.Depositar(200.0);
+        conta2.Sacar(250.0);
+        Console.WriteLine($"Saldo da conta especial: {conta2.ConsultarSaldo()}");
+
+        Console.WriteLine(conta2.ToString());
     }
 }
