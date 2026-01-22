@@ -1,0 +1,36 @@
+static int CadastrarCliente(Cliente[] clientes, int qtdClientes)
+    {
+        if (qtdClientes >= clientes.Length)
+        {
+            Console.WriteLine("Limite de clientes atingido.");
+            return qtdClientes;
+        }
+
+        Console.Write("Nome: ");
+        string nome = Console.ReadLine();
+
+        Console.Write("Login: ");
+        string login = Console.ReadLine();
+
+        Console.Write("Senha: ");
+        string senha = Console.ReadLine();
+
+        Console.Write("Email: ");
+        string email = Console.ReadLine();
+
+        Console.Write("Fone: ");
+        string fone = Console.ReadLine();
+
+        clientes[qtdClientes] = new Cliente(nome, login, senha, email, fone);
+        qtdClientes++;
+
+        Console.WriteLine("Cliente cadastrado com sucesso!");
+        return qtdClientes;
+    }
+
+e no menu:
+      case 2:
+            Console.WriteLine("=== CADASTRAR CLIENTE ===");
+            qtdClientes = CadastrarCliente(clientes, qtdClientes);
+            Console.ReadKey();
+            break;

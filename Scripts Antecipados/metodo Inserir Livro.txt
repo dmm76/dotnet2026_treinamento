@@ -1,0 +1,57 @@
+0) Antes do loop: crie pedidoAtual
+
+No começo do Main, junto com clienteLogado:
+
+Pedido pedidoAtual = null;
+
+1) Colar no switch:
+
+case 4:
+    if (clienteLogado == null || clienteLogado.Logado == false)
+    {
+        Console.WriteLine("Você precisa estar logado para inserir livro.");
+        Console.ReadKey();
+        break;
+    }
+
+    Console.WriteLine("=== INSERIR LIVRO NO CARRINHO ===");
+
+    Console.Write("Digite o ISBN: ");
+    string isbn = Console.ReadLine();
+
+    Livro livroEncontrado = BuscarLivroPorIsbn(isbn);
+
+    if (livroEncontrado == null)
+    {
+        Console.WriteLine("Livro não encontrado.");
+        Console.ReadKey();
+        break;
+    }
+
+    Console.Write("Quantidade: ");
+    int quantidade = int.Parse(Console.ReadLine());
+
+    // cria o pedido/carrinho na primeira vez
+    if (pedidoAtual == null)
+    {
+        pedidoAtual = new Pedido("001", "hoje", "PIX", 0, "ABERTO");
+        clienteLogado.InserirPedido(pedidoAtual); // prova relacionamento Cliente -> Pedido
+    }
+
+    pedidoAtual.InserirItem(new ItemDePedido(livroEncontrado, quantidade));
+
+    Console.WriteLine("Livro inserido no carrinho com sucesso!");
+    Console.ReadKey();
+    break;
+
+2) Fora do Main
+
+static Livro BuscarLivroPorIsbn(string isbn)
+{
+    foreach (var livro in FabricaLivros.GetLivros())
+    {
+        if (livro.Isbn == isbn)
+            return livro;
+    }
+    return null;
+}

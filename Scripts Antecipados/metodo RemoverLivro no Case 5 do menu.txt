@@ -1,0 +1,32 @@
+✅ 2) Case 5 — Remover livro do carrinho (Program)
+
+Cole no seu switch:
+
+case 5:
+    if (clienteLogado == null || !clienteLogado.Logado)
+    {
+        Console.WriteLine("Você precisa estar logado para remover livro.");
+        Console.ReadKey();
+        break;
+    }
+
+    if (pedidoAtual == null)
+    {
+        Console.WriteLine("Carrinho vazio.");
+        Console.ReadKey();
+        break;
+    }
+
+    Console.WriteLine("=== REMOVER LIVRO DO CARRINHO ===");
+    Console.Write("Digite o ISBN: ");
+    string isbnRemover = Console.ReadLine();
+
+    bool removeu = pedidoAtual.RemoverItemPorIsbn(isbnRemover);
+
+    if (removeu)
+        Console.WriteLine("Livro removido do carrinho!");
+    else
+        Console.WriteLine("Livro não encontrado no carrinho.");
+
+    Console.ReadKey();
+    break;

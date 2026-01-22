@@ -1,0 +1,23 @@
+✅ (Opcional) Case 6 — Ver Carrinho de verdade
+
+Se quiser já deixar redondo, no case 6:
+
+case 6:
+    if (clienteLogado == null || !clienteLogado.Logado)
+    {
+        Console.WriteLine("Você precisa estar logado para ver o carrinho.");
+        Console.ReadKey();
+        break;
+    }
+
+    if (pedidoAtual == null)
+    {
+        Console.WriteLine("Carrinho vazio.");
+        Console.ReadKey();
+        break;
+    }
+
+    Console.WriteLine("=== CARRINHO ===");
+    pedidoAtual.Mostrar();
+    Console.ReadKey();
+    break;

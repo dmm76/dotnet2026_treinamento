@@ -1,0 +1,32 @@
+✅ 1) Adicione este método na classe Pedido
+
+Cole dentro da sua classe Pedido, junto dos outros métodos:
+
+public bool RemoverItemPorIsbn(string isbn)
+{
+    int pos = -1;
+
+    // acha a posição do item
+    for (int i = 0; i < qtdItens; i++)
+    {
+        if (itens[i] != null && itens[i].Livro != null && itens[i].Livro.Isbn == isbn)
+        {
+            pos = i;
+            break;
+        }
+    }
+
+    if (pos == -1)
+        return false;
+
+    // "puxa" os elementos para a esquerda (remove do array)
+    for (int i = pos; i < qtdItens - 1; i++)
+    {
+        itens[i] = itens[i + 1];
+    }
+
+    itens[qtdItens - 1] = null;
+    qtdItens--;
+
+    return true;
+}
