@@ -1,143 +1,28 @@
-namespace CultBook05.model;
+namespace CultBook07.model;
 
-public class Cliente
+public class Cliente : IAutenticavel
 {
+    private string _senha;
+
     public string Nome { get; set; }
-    public string? Login { get; set; }
-    private string? Senha { get; set; }
-    public string? Email { get; set; }
-    public string? Fone { get; set; }
-    public bool Logado { get; set; }
+    public string Login { get; set; }
+    public string Email { get; set; }
 
-    //ajustes para o lab04
-
-    private Endereco[] enderecos;
-    private Pedido[] pedidos;
-
-    private int qtdEnderecos = 0;
-    private int qtdPedidos = 0;
-
-    public Cliente(string nome)
-    {
-        Nome = nome;
-        Logado = false;
-        enderecos = new Endereco[5]; //limite de 5 endereços por cliente
-        pedidos = new Pedido[10]; //limite de 10 pedidos por cliente
-    }
-
-    public Cliente(
-        string nome,
-        string login,
-        string senha,
-        string email,
-        string fone,
-        bool logado = false
-    )
+    public Cliente(string nome, string login, string email, string senha)
     {
         Nome = nome;
         Login = login;
-        Senha = senha;
         Email = email;
-        Fone = fone;
-        Logado = logado;
-        enderecos = new Endereco[5]; //limite de 5 endereços por cliente
-        pedidos = new Pedido[10]; //limite de 10 pedidos por cliente
+        _senha = senha;
     }
 
-    public Endereco[] GetEnderecos()
+    public void SetSenha(string novaSenha)
     {
-        return enderecos;
+        _senha = novaSenha;
     }
 
-    public Pedido[] GetPedidos()
+    public bool ValidarSenha(string senha)
     {
-        return pedidos;
-    }
-
-    public void InserirEndereco(Endereco endereco)
-    {
-        if (qtdEnderecos >= enderecos.Length)
-        {
-            Console.WriteLine("Limite de endereços atingido.");
-            return;
-        }
-        enderecos[qtdEnderecos] = endereco;
-        qtdEnderecos++;
-    }
-
-    public void InserirPedido(Pedido pedido)
-    {
-        if (qtdPedidos >= pedidos.Length)
-        {
-            Console.WriteLine("Limite de pedidos atingido.");
-            return;
-        }
-        pedidos[qtdPedidos] = pedido;
-        qtdPedidos++;
-    }
-
-    public void VerificarLogin()
-    {
-        if (Logado)
-        {
-            Console.WriteLine("Cliente já está logado.");
-        }
-        else
-        {
-            //Simulação de processo de login
-            Logado = true;
-            Console.WriteLine($"Cliente {Nome} logado com sucesso.");
-        }
-    }
-
-    public void Mostrar()
-    {
-        Console.WriteLine(
-            $"Nome: {Nome} | Login: {Login} | Email: {Email} | Fone: {Fone} | Logado: {Logado}"
-        );
-        Console.WriteLine("=== ENDEREÇOS ===");
-        for (int i = 0; i < qtdEnderecos; i++)
-        {
-            if (enderecos[i] != null)
-                enderecos[i].Mostrar();
-        }
-
-        for (int i = 0; i < qtdPedidos; i++)
-        {
-            if (pedidos[i] != null)
-                pedidos[i].Mostrar();
-        }
-    }
-
-    public override string ToString()
-    {
-        string texto =
-            $"Nome: {Nome}\n"
-            + $"Login: {Login}\n"
-            + $"Email: {Email}\n"
-            + $"Fone: {Fone}\n"
-            + $"Logado: {Logado}\n";
-
-        texto += "Endereços:\n";
-        for (int i = 0; i < qtdEnderecos; i++)
-        {
-            if (enderecos[i] != null)
-            {
-                texto += $"--- Endereço {i + 1} ---\n";
-                texto += enderecos[i].ToString() + "\n";
-            }
-        }
-
-        texto += "Pedidos:\n";
-        for (int i = 0; i < qtdPedidos; i++)
-        {
-            if (pedidos[i] != null)
-            {
-                texto += $"=== Pedido {i + 1} ===\n";
-                texto += pedidos[i].ToString() + "\n";
-            }
-        }
-
-        return texto.TrimEnd();
+        return _senha == senha;
     }
 }

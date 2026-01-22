@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Extreme\\Desktop\\Cesumar\\ESTAGIO VOLVO - CODIGOS\\AULAS_PRATICAS_C#\\CultBook05\\CultBook01.csproj",
-      "projectName": "CultBook01",
-      "projectPath": "C:\\Users\\Extreme\\Desktop\\Cesumar\\ESTAGIO VOLVO - CODIGOS\\AULAS_PRATICAS_C#\\CultBook05\\CultBook01.csproj",
+      "projectUniqueName": "C:\\Users\\Extreme\\Desktop\\Cesumar\\ESTAGIO VOLVO - CODIGOS\\AULAS_PRATICAS_C#\\CultBook07\\CultBook07.csproj",
+      "projectName": "CultBook07",
+      "projectPath": "C:\\Users\\Extreme\\Desktop\\Cesumar\\ESTAGIO VOLVO - CODIGOS\\AULAS_PRATICAS_C#\\CultBook07\\CultBook07.csproj",
       "packagesPath": "C:\\Users\\Extreme\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Extreme\\Desktop\\Cesumar\\ESTAGIO VOLVO - CODIGOS\\AULAS_PRATICAS_C#\\CultBook05\\obj\\",
+      "outputPath": "C:\\Users\\Extreme\\Desktop\\Cesumar\\ESTAGIO VOLVO - CODIGOS\\AULAS_PRATICAS_C#\\CultBook07\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
