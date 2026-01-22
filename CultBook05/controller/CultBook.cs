@@ -119,7 +119,7 @@ class Program
         bool executando = true;
 
         Cliente[] clientes = new Cliente[20];
-        int qtdClientes = 0;
+        // int qtdClientes = 0;
 
         Cliente? clienteLogado = null;
 

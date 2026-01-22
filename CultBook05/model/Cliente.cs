@@ -4,9 +4,9 @@ public class Cliente
 {
     public string Nome { get; set; }
     public string? Login { get; set; }
-    private string Senha { get; set; }
-    public string Email { get; set; }
-    public string Fone { get; set; }
+    private string? Senha { get; set; }
+    public string? Email { get; set; }
+    public string? Fone { get; set; }
     public bool Logado { get; set; }
 
     //ajustes para o lab04

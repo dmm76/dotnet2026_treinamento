@@ -13,7 +13,8 @@ public class ItemDePedido
     {
         Livro = livro;
         Quantidade = quantidade;
-        //ajuste para o lab06 - respeita LivroFisico (preco + frete) e Ebook (preco)
+        //ajuste para o lab06
+        //respeita LivroFisico (preco + frete) e Ebook (preco)
         Preco = livro.CalcularPrecoTotal();
     }
 
