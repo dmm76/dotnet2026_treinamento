@@ -1,48 +1,40 @@
 using CultBook05.infra.data.factory;
 using CultBook05.model.entities;
+using CultBook05.model.interfaces;
 
 namespace CultBook05.infra.repositories;
 
 public class LivroRepositorioFake : ILivroRepositorio
 {
-    private List<Livro> livros;
+    private readonly List<Livro> _livros;
 
     public LivroRepositorioFake()
     {
-        livros = new List<Livro>(FabricaLivros.BuscarTodos());
+        _livros = FabricaLivros.BuscarTodos().ToList();
     }
 
-    public List<Livro> BuscarTodos()
-    {
-        return livros;
-    }
+    public List<Livro> BuscarTodos() => _livros.ToList();
 
-    public Livro BuscarPorIsbn(string isbn)
-    {
-        return livros.FirstOrDefault(l => l.Isbn == isbn);
-    }
+    public Livro? BuscarPorIsbn(string isbn) => _livros.FirstOrDefault(l => l.Isbn == isbn);
 
-    public void Adicionar(Livro livro)
-    {
-        livros.Add(livro);
-    }
+    public void Adicionar(Livro livro) => _livros.Add(livro);
 
     public void Atualizar(Livro livro)
     {
-        var livroExistente = BuscarPorIsbn(livro.Isbn);
-        if (livroExistente != null)
-        {
-            livros.Remove(livroExistente);
-            livros.Add(livro);
-        }
+        var existente = BuscarPorIsbn(livro.Isbn);
+        if (existente == null)
+            return;
+
+        _livros.Remove(existente);
+        _livros.Add(livro);
     }
 
     public void Remover(string isbn)
     {
-        var livro = BuscarPorIsbn(isbn);
-        if (livro != null)
-        {
-            livros.Remove(livro);
-        }
+        var existente = BuscarPorIsbn(isbn);
+        if (existente == null)
+            return;
+
+        _livros.Remove(existente);
     }
 }
