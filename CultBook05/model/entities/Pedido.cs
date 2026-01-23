@@ -1,4 +1,4 @@
-namespace CultBook05.model;
+namespace CultBook05.model.entities;
 
 public class Pedido
 {
@@ -8,7 +8,7 @@ public class Pedido
 
     private string FormaPagamento { get; set; }
 
-    private double ValorTotal { get; set; }
+    private decimal ValorTotal { get; set; }
 
     private string Situacao { get; set; }
 
@@ -61,11 +61,11 @@ public class Pedido
 
     public int GetQtdItens() => _qtdItens;
 
-    public double GetValorTotal() => ValorTotal;
+    public decimal GetValorTotal() => ValorTotal;
 
     public void RecalcularTotal()
     {
-        double total = 0;
+        decimal total = 0;
 
         for (int i = 0; i < _qtdItens; i++)
         {

@@ -1,9 +1,9 @@
-namespace CultBook05.model;
+namespace CultBook05.model.entities;
 
 public class ItemDePedido
 {
     public int Quantidade { get; set; }
-    public double Preco { get; set; }
+    public decimal Preco { get; set; }
 
     //ajustes para o lab04
 

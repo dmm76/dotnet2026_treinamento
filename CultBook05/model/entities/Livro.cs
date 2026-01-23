@@ -1,4 +1,4 @@
-namespace CultBook05.model;
+namespace CultBook05.model.entities;
 
 public abstract class Livro
 {
@@ -7,7 +7,7 @@ public abstract class Livro
     public string Descricao { get; set; }
     public string Autor { get; set; }
     public int Estoque { get; set; }
-    public double Preco { get; set; }
+    public decimal Preco { get; set; }
     public string Figura { get; set; }
     public int DataCadastro { get; set; }
     public string Categoria { get; set; }
@@ -18,7 +18,7 @@ public abstract class Livro
         string descricao,
         string autor,
         int estoque,
-        double preco,
+        decimal preco,
         string figura,
         int dataCadastro,
         string categoria
@@ -36,7 +36,7 @@ public abstract class Livro
     }
 
     // Atualizacao Lab06
-    public abstract double CalcularPrecoTotal();
+    public abstract decimal CalcularPrecoTotal();
 
     public void Mostrar()
     {

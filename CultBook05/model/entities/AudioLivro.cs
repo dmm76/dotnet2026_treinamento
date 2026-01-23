@@ -1,4 +1,4 @@
-namespace CultBook05.model;
+namespace CultBook05.model.entities;
 
 public class AudioLivro : Livro
 {
@@ -11,7 +11,7 @@ public class AudioLivro : Livro
         string descricao,
         string autor,
         int estoque,
-        double preco,
+        decimal preco,
         string figura,
         int dataCadastro,
         string categoria,
@@ -25,7 +25,7 @@ public class AudioLivro : Livro
     }
 
     //Obrigatoria a implementação do método abstrato da classe base Livro
-    public override double CalcularPrecoTotal()
+    public override decimal CalcularPrecoTotal()
     {
         return Preco;
     }

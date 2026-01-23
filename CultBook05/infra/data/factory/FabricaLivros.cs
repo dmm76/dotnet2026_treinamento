@@ -1,6 +1,6 @@
-using CultBook05.model;
+using CultBook05.model.entities;
 
-namespace CultBook05.testes;
+namespace CultBook05.infra.data.factory;
 
 public class FabricaLivros
 {
@@ -12,12 +12,12 @@ public class FabricaLivros
             "Uma jornada épica pelo mundo da lógica e da programação.",
             "J. R. R. Code",
             12,
-            89.90,
+            89.90m,
             "algoritmos.jpg",
             2025,
             "Tecnologia",
             peso: 0.45,
-            valorFrete: 12.00
+            valorFrete: 12.00m
         ),
         new LivroFisico(
             "978-85-01-00002-2",
@@ -25,12 +25,12 @@ public class FabricaLivros
             "Boas práticas para escrever código limpo e sustentável.",
             "Robert C. Martin",
             8,
-            99.90,
+            99.90m,
             "cleancode.jpg",
             2025,
             "Tecnologia",
             peso: 0.55,
-            valorFrete: 14.00
+            valorFrete: 14.00m
         ),
         new LivroFisico(
             "978-85-01-00003-3",
@@ -38,12 +38,12 @@ public class FabricaLivros
             "Entenda listas, pilhas e filas de forma simples.",
             "Douglas Monquero",
             15,
-            79.90,
+            79.90m,
             "estruturas.jpg",
             2025,
             "Tecnologia",
             peso: 0.40,
-            valorFrete: 11.00
+            valorFrete: 11.00m
         ),
         new Ebook(
             "978-85-01-00004-4",
@@ -51,7 +51,7 @@ public class FabricaLivros
             "Mistério e tecnologia se encontram nesta obra moderna.",
             "Dan Brown Jr.",
             999,
-            59.90,
+            59.90m,
             "vinci.jpg",
             2025,
             "Ficção",
@@ -63,12 +63,12 @@ public class FabricaLivros
             "Aprenda Java com exemplos claros e objetivos.",
             "James Gosling",
             20,
-            69.90,
+            69.90m,
             "java.jpg",
             2025,
             "Tecnologia",
             peso: 0.50,
-            valorFrete: 12.50
+            valorFrete: 12.50m
         ),
         new LivroFisico(
             "978-85-01-00006-6",
@@ -76,12 +76,12 @@ public class FabricaLivros
             "Fundamentos da linguagem C# para iniciantes.",
             "Anders Hejlsberg",
             10,
-            74.90,
+            74.90m,
             "csharp.jpg",
             2025,
             "Tecnologia",
             peso: 0.48,
-            valorFrete: 12.00
+            valorFrete: 12.00m
         ),
         new Ebook(
             "978-85-01-00007-7",
@@ -89,7 +89,7 @@ public class FabricaLivros
             "Uma história sobre erros que assombram desenvolvedores.",
             "Ada Lovelace",
             999,
-            49.90,
+            49.90m,
             "bug.jpg",
             2025,
             "Ficção",
@@ -101,12 +101,12 @@ public class FabricaLivros
             "Como projetar sistemas robustos e escaláveis.",
             "Robert C. Martin",
             9,
-            109.90,
+            109.90m,
             "arquitetura.jpg",
             2025,
             "Tecnologia",
             peso: 0.65,
-            valorFrete: 16.00
+            valorFrete: 16.00m
         ),
         new Ebook(
             "978-85-01-00009-9",
@@ -114,7 +114,7 @@ public class FabricaLivros
             "O primeiro passo para quem quer aprender a programar.",
             "Paulo Silveira",
             999,
-            54.90,
+            54.90m,
             "logica.jpg",
             2025,
             "Educação",
@@ -126,12 +126,12 @@ public class FabricaLivros
             "Suspense no mundo do desenvolvimento de software.",
             "Linus Torvalds",
             4,
-            64.90,
+            64.90m,
             "commit.jpg",
             2025,
             "Ficção",
             peso: 0.42,
-            valorFrete: 11.50
+            valorFrete: 11.50m
         ),
         new AudioLivro(
             "978-85-01-99999-1",
@@ -139,7 +139,7 @@ public class FabricaLivros
             "Versão narrada do clássico.",
             "Robert C. Martin",
             5,
-            119.90,
+            119.90m,
             "cleancode-audio.jpg",
             2025,
             "Tecnologia",
@@ -149,6 +149,11 @@ public class FabricaLivros
     };
 
     public static List<Livro> GetLivros()
+    {
+        return livros;
+    }
+
+    public static List<Livro> BuscarTodos()
     {
         return livros;
     }

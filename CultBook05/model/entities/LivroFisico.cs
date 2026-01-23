@@ -1,9 +1,9 @@
-namespace CultBook05.model;
+namespace CultBook05.model.entities;
 
 public class LivroFisico : Livro
 {
     public double Peso { get; set; }
-    public double ValorFrete { get; set; }
+    public decimal ValorFrete { get; set; }
 
     public LivroFisico(
         string isbn,
@@ -11,12 +11,12 @@ public class LivroFisico : Livro
         string descricao,
         string autor,
         int estoque,
-        double preco,
+        decimal preco,
         string figura,
         int dataCadastro,
         string categoria,
         double peso,
-        double valorFrete
+        decimal valorFrete
     )
         : base(isbn, titulo, descricao, autor, estoque, preco, figura, dataCadastro, categoria)
     {
@@ -24,7 +24,7 @@ public class LivroFisico : Livro
         ValorFrete = valorFrete;
     }
 
-    public override double CalcularPrecoTotal()
+    public override decimal CalcularPrecoTotal()
     {
         return Preco + ValorFrete;
     }

@@ -1,11 +1,140 @@
 ﻿namespace CultBook05.controller;
 
-using CultBook05.model;
-using CultBook05.testes;
+using System;
+using CultBook05.infra.data.factory;
+using CultBook05.model.entities;
+using CultBook05.testes.utils;
 
 class Program
 {
     static Pedido? pedidoAtual = null;
+
+    public static void CadastrarCliente()
+    {
+        Console.WriteLine("\n=== CADASTRO DE CLIENTE ===");
+
+        Console.Write("Nome: ");
+        string? nome = Console.ReadLine();
+
+        Console.Write("Login: ");
+        string? login = Console.ReadLine();
+
+        Console.Write("Senha: ");
+        string? senha = Console.ReadLine();
+
+        Console.Write("Email: ");
+        string? email = Console.ReadLine();
+
+        Console.Write("Fone: ");
+        string? fone = Console.ReadLine();
+
+        // validação simples (pra não quebrar)
+        if (
+            string.IsNullOrWhiteSpace(nome)
+            || string.IsNullOrWhiteSpace(login)
+            || string.IsNullOrWhiteSpace(senha)
+        )
+        {
+            Console.WriteLine("Nome, Login e Senha são obrigatórios.");
+            return;
+        }
+
+        // login duplicado?
+        if (FabricaClientes.LoginExiste(login))
+        {
+            Console.WriteLine("Esse login já existe. Escolha outro.");
+            return;
+        }
+
+        Cliente cliente = new Cliente(
+            nome.Trim(),
+            login.Trim(),
+            senha.Trim(),
+            (email ?? "").Trim(),
+            (fone ?? "").Trim()
+        );
+
+        bool ok = FabricaClientes.Inserir(cliente);
+
+        if (!ok)
+        {
+            Console.WriteLine("Não foi possível cadastrar: limite de clientes atingido.");
+            return;
+        }
+
+        Console.WriteLine("✅ Cliente cadastrado com sucesso!");
+        cliente.Mostrar();
+    }
+
+    public static void ListarClientes()
+    {
+        Console.WriteLine("\n=== CLIENTES CADASTRADOS ===");
+        var clientes = FabricaClientes.GetClientes();
+        int qtd = FabricaClientes.GetQtd();
+
+        for (int i = 0; i < qtd; i++)
+        {
+            clientes[i].Mostrar();
+            Console.WriteLine("------------------------");
+        }
+    }
+
+    public static class ConfiguracaoMenu
+    {
+        public static ConfiguracaoUsuario EscolherRegiaoEIdioma()
+        {
+            string regiao = EscolherOpcao(
+                "=== Escolha a Região ===",
+                new Dictionary<int, string>
+                {
+                    { 1, "BR" },
+                    { 2, "US" },
+                    { 3, "PT" },
+                }
+            );
+
+            string idioma = EscolherOpcao(
+                "=== Escolha o Idioma ===",
+                new Dictionary<int, string>
+                {
+                    { 1, "pt-BR" },
+                    { 2, "en-US" },
+                    { 3, "pt-PT" },
+                }
+            );
+
+            return new ConfiguracaoUsuario(regiao, idioma);
+        }
+
+        private static string EscolherOpcao(string titulo, Dictionary<int, string> opcoes)
+        {
+            while (true)
+            {
+                Console.WriteLine();
+                Console.WriteLine(titulo);
+
+                foreach (var kv in opcoes)
+                    Console.WriteLine($"{kv.Key} - {kv.Value}");
+
+                Console.Write("Digite a opção: ");
+                string? entrada = Console.ReadLine();
+
+                if (!int.TryParse(entrada, out int opcao))
+                {
+                    Console.WriteLine("Opção inválida: digite um número.");
+                    continue;
+                }
+
+                if (!opcoes.ContainsKey(opcao))
+                {
+                    Console.WriteLine("Opção inválida: escolha uma das opções do menu.");
+                    continue;
+                }
+
+                return opcoes[opcao];
+            }
+        }
+    }
 
     public static void InserirLivro(Cliente? clienteLogado)
     {
@@ -30,7 +159,7 @@ class Program
 
         // Busca o livro pelo ISBN
         Livro? livroSelecionado = null;
-        foreach (Livro livro in FabricaLivros.GetLivros())
+        foreach (Livro livro in FabricaLivros.BuscarTodos())
         {
             if (livro.Isbn == isbn)
             {
@@ -103,11 +232,14 @@ class Program
     const int OP_REMOVER = 5;
     const int OP_CARRINHO = 6;
     const int OP_COMPRA = 7;
+    const int OPATIVAR_IDIOMA = 8;
+    const int OP_CADASTRAR_CLIENTE = 9;
+    const int OP_LISTAR_CLIENTES = 10;
     const int OP_SAIR = 0;
 
     public static void BuscarLivros()
     {
-        List<Livro> livros = FabricaLivros.GetLivros();
+        List<Livro> livros = FabricaLivros.BuscarTodos();
         foreach (Livro livro in livros)
         {
             Console.WriteLine(livro.ToString());
@@ -116,9 +248,12 @@ class Program
 
     static void Main(string[] args)
     {
+        DateTime dataAtual = DateTime.Now;
+        string dataFormatada = dataAtual.ToString("dd/MM/yyyy HH:mm");
+
         bool executando = true;
 
-        Cliente[] clientes = new Cliente[20];
+        //Cliente[] clientes = new Cliente[20];
         // int qtdClientes = 0;
 
         Cliente? clienteLogado = null;
@@ -126,7 +261,8 @@ class Program
         do
         {
             Console.Clear();
-            Console.WriteLine("=== CultBook ===");
+
+            Console.WriteLine($"Bem-vindo à CultBook! {dataFormatada}");
             Console.WriteLine("1 - Login");
             Console.WriteLine("2 - Cadastrar");
             Console.WriteLine("3 - Buscar Livros - Lista de Livros");
@@ -137,6 +273,9 @@ class Program
                 Console.WriteLine("7 - Efetuar compra");
             else
                 Console.WriteLine("7 - Efetuar compra (desabilitado - faça login)");
+            Console.WriteLine("8 - Ativar Idioma e Região");
+            Console.WriteLine("9 - Cadastrar Cliente");
+            Console.WriteLine("10 - Listar Clientes Cadastrados");
             Console.WriteLine("0 - Sair");
             Console.Write("Escolha uma opção: ");
 
@@ -171,7 +310,9 @@ class Program
 
                 case OP_BUSCAR:
                     Console.WriteLine("Buscar Livros - Dados Mock");
-                    FabricaLivros.GetLivros().ForEach(livro => Console.WriteLine(livro.ToString()));
+                    FabricaLivros
+                        .BuscarTodos()
+                        .ForEach(livro => Console.WriteLine(livro.ToString()));
                     Console.ReadKey();
                     break;
 
@@ -207,6 +348,20 @@ class Program
 
                 case OP_COMPRA:
                     Console.WriteLine("Efetuar Compra - Em construção");
+                    Console.ReadKey();
+                    break;
+                case OPATIVAR_IDIOMA:
+                    Console.WriteLine("Ativar Idioma e Região");
+                    ConfiguracaoUsuario config = ConfiguracaoMenu.EscolherRegiaoEIdioma();
+                    Console.WriteLine($"Configuração selecionada: {config}");
+                    Console.ReadKey();
+                    break;
+                case OP_CADASTRAR_CLIENTE:
+                    CadastrarCliente();
+                    break;
+                case OP_LISTAR_CLIENTES:
+                    Console.WriteLine("Listar Clientes Cadastrados");
+                    ListarClientes();
                     Console.ReadKey();
                     break;
 

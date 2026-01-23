@@ -1,4 +1,4 @@
-namespace CultBook05.model;
+namespace CultBook05.model.entities;
 
 public class Ebook : Livro
 {
@@ -10,7 +10,7 @@ public class Ebook : Livro
         string descricao,
         string autor,
         int estoque,
-        double preco,
+        decimal preco,
         string figura,
         int dataCadastro,
         string categoria,
@@ -22,7 +22,7 @@ public class Ebook : Livro
     }
 
     // Atualizacao Lab06
-    public override double CalcularPrecoTotal()
+    public override decimal CalcularPrecoTotal()
     {
         return Preco;
     }

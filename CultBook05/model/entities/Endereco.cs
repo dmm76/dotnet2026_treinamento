@@ -1,4 +1,4 @@
-namespace CultBook05.model;
+namespace CultBook05.model.entities;
 
 public class Endereco
 {
