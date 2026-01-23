@@ -1,16 +1,16 @@
-namespace CultBook05.testes;
+namespace CultBook05.infra.config;
 
-public class CaminhoInvalido : Exception
+public class CaminhoInvalidoException : Exception
 {
     //Construtor com mensagem padrão
-    public CaminhoInvalido()
+    public CaminhoInvalidoException()
         : base("O caminho do arquivo é inválido.") { }
 
     //Construtor com mensagem personalizada
-    public CaminhoInvalido(string mensagem)
+    public CaminhoInvalidoException(string mensagem)
         : base(mensagem) { }
 
     //Construto com mensagem e inner exception
-    public CaminhoInvalido(string mensagem, Exception innerException)
+    public CaminhoInvalidoException(string mensagem, Exception innerException)
         : base(mensagem, innerException) { }
 }

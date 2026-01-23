@@ -1,4 +1,4 @@
-namespace CultBook05.testes.utils;
+namespace CultBook05.infra.config;
 
 public class ConfiguracaoUsuario
 {

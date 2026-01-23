@@ -1,4 +1,4 @@
-namespace CultBook05.testes;
+namespace CultBook05.infra.config;
 
 using System.IO;
 
@@ -16,18 +16,22 @@ public class Configuracao
 
         // Valida o caminho do arquivo de ajuda
         if (string.IsNullOrWhiteSpace(caminhoArquivo))
-            throw new CaminhoInvalido("O caminho do arquivo de ajuda veio vazio no JSON.");
+            throw new CaminhoInvalidoException("O caminho do arquivo de ajuda veio vazio no JSON.");
 
         // Remove espaços acidentais no começo/fim
         caminhoArquivo = caminhoArquivo.Trim();
 
         // Valida caracteres inválidos no caminho
         if (caminhoArquivo.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
-            throw new CaminhoInvalido($"O caminho contém caracteres inválidos: {caminhoArquivo}");
+            throw new CaminhoInvalidoException(
+                $"O caminho contém caracteres inválidos: {caminhoArquivo}"
+            );
 
         // Valida existência do arquivo
         if (!File.Exists(caminhoArquivo))
-            throw new CaminhoInvalido($"Arquivo de ajuda não encontrado: {caminhoArquivo}");
+            throw new CaminhoInvalidoException(
+                $"Arquivo de ajuda não encontrado: {caminhoArquivo}"
+            );
 
         CaminhoArquivo = caminhoArquivo;
     }

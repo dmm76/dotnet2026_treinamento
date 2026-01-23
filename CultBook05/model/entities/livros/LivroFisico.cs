@@ -1,10 +1,11 @@
-namespace CultBook05.model.entities;
+namespace CultBook05.model.entities.livros;
 
-public class Ebook : Livro
+public class LivroFisico : Livro
 {
-    public double TamanhoMB { get; set; }
+    public double Peso { get; set; }
+    public decimal ValorFrete { get; set; }
 
-    public Ebook(
+    public LivroFisico(
         string isbn,
         string titulo,
         string descricao,
@@ -14,24 +15,26 @@ public class Ebook : Livro
         string figura,
         int dataCadastro,
         string categoria,
-        double tamanhoMB
+        double peso,
+        decimal valorFrete
     )
         : base(isbn, titulo, descricao, autor, estoque, preco, figura, dataCadastro, categoria)
     {
-        TamanhoMB = tamanhoMB;
+        Peso = peso;
+        ValorFrete = valorFrete;
     }
 
-    // Atualizacao Lab06
     public override decimal CalcularPrecoTotal()
     {
-        return Preco;
+        return Preco + ValorFrete;
     }
 
     public override string ToString()
     {
-        return "Tipo: E-book\n"
+        return "Tipo: Livro Físico\n"
             + base.ToString()
-            + $"Tamanho (MB): {TamanhoMB:F2}\n"
+            + $"Peso: {Peso:F2}\n"
+            + $"Frete: {ValorFrete:F2}\n"
             + "------------------------------\n";
     }
 }

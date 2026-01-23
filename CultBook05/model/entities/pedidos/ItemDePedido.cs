@@ -1,4 +1,6 @@
-namespace CultBook05.model.entities;
+namespace CultBook05.model.entities.pedidos;
+
+using CultBook05.model.entities.livros;
 
 public class ItemDePedido
 {

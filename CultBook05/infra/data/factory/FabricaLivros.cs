@@ -1,4 +1,4 @@
-using CultBook05.model.entities;
+using CultBook05.model.entities.livros;
 
 namespace CultBook05.infra.data.factory;
 

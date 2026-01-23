@@ -1,5 +1,5 @@
 using CultBook05.infra.data.factory;
-using CultBook05.model.entities;
+using CultBook05.model.entities.livros;
 using CultBook05.model.interfaces;
 
 namespace CultBook05.infra.repositories;

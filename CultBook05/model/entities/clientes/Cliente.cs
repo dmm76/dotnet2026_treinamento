@@ -1,4 +1,6 @@
-namespace CultBook05.model.entities;
+namespace CultBook05.model.entities.clientes;
+
+using CultBook05.model.entities.pedidos;
 
 public class Cliente
 {
