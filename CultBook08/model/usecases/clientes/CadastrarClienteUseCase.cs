@@ -1,4 +1,3 @@
-using System.Security.Cryptography;
 using CultBook08.model.entities.clientes;
 using CultBook08.model.interfaces;
 
@@ -15,20 +14,24 @@ public class CadastrarClienteUseCase
 
     public string? Executar(string nome, string login, string? senha, string? email, string? fone)
     {
+        // 1) Validação básica
         if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(login))
             throw new Exception("Nome e Login são obrigatórios.");
 
+        // 2) Normalização
         nome = nome.Trim();
         login = login.Trim();
 
+        // 3) Regra de negócio: login único
         if (_repo.LoginExiste(login))
             throw new Exception("Esse login já existe. Escolha outro.");
 
-        // ✅ senha pode ser vazia → gera
+        // 4) Senha opcional
         string? senhaGerada = null;
+
         if (string.IsNullOrWhiteSpace(senha))
         {
-            senhaGerada = GerarSenhaForte(8);
+            senhaGerada = GerarSenhaAleatoria(8);
             senha = senhaGerada;
         }
         else
@@ -36,53 +39,30 @@ public class CadastrarClienteUseCase
             senha = senha.Trim();
         }
 
+        // 5) Criação da entidade
         var cliente = new Cliente(nome, login, senha!, (email ?? "").Trim(), (fone ?? "").Trim());
 
+        // 6) Persistência
         _repo.Adicionar(cliente);
 
+        // 7) Retorna a senha gerada (se houver)
         return senhaGerada;
     }
 
-    private static string GerarSenhaForte(int tamanho)
+    private static string GerarSenhaAleatoria(int tamanho)
     {
-        if (tamanho < 8)
-            tamanho = 8;
+        const string caracteres =
+            "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "!@#$%&*";
 
-        const string letras = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const string digitos = "0123456789";
-        const string simbolos = "!@#$%&*()-_=+[]{}<>?";
+        Random random = new Random();
+        char[] senha = new char[tamanho];
 
-        // garante pelo menos 1 de cada categoria
-        var chars = new List<char>(tamanho)
+        for (int i = 0; i < tamanho; i++)
         {
-            EscolherUm(letras),
-            EscolherUm(digitos),
-            EscolherUm(simbolos),
-        };
-
-        // completa o restante com todos
-        string todos = letras + digitos + simbolos;
-        while (chars.Count < tamanho)
-            chars.Add(EscolherUm(todos));
-
-        // embaralha
-        Embaralhar(chars);
-
-        return new string(chars.ToArray());
-    }
-
-    private static char EscolherUm(string conjunto)
-    {
-        int idx = RandomNumberGenerator.GetInt32(conjunto.Length);
-        return conjunto[idx];
-    }
-
-    private static void Embaralhar(List<char> lista)
-    {
-        for (int i = lista.Count - 1; i > 0; i--)
-        {
-            int j = RandomNumberGenerator.GetInt32(i + 1);
-            (lista[i], lista[j]) = (lista[j], lista[i]);
+            int indice = random.Next(caracteres.Length);
+            senha[i] = caracteres[indice];
         }
+
+        return new string(senha);
     }
 }
