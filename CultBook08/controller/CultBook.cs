@@ -140,9 +140,17 @@ class Program
             Console.Write("Fone: ");
             string fone = Console.ReadLine() ?? "";
 
-            _cadastrarCliente.Executar(nome, login, senha, email, fone);
+            string? senhaGerada = _cadastrarCliente.Executar(nome, login, senha, email, fone);
 
             Console.WriteLine("Cliente cadastrado com sucesso!");
+
+            if (senhaGerada != null)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Senha não informada. Uma senha aleatória foi gerada:");
+                Console.WriteLine($"Senha: {senhaGerada}");
+                Console.WriteLine("Anote essa senha, pois ela não será mostrada novamente.");
+            }
         }
         catch (Exception ex)
         {
@@ -234,13 +242,18 @@ class Program
 
         // aplica cultura
         CultureInfo culturaAtual = AplicarConfiguracao(configAtual);
+        // lê a ajuda uma vez
+        string msgAjuda = cfg.LerAjudaOuPadrao();
 
         do
         {
             Console.Clear();
             string dataFormatada = DateTime.Now.ToString("f", culturaAtual);
-            Console.WriteLine($"Bem-vindo à CultBook! {dataFormatada}");
+            Console.WriteLine($"{dataFormatada.ToUpper()}");
             Console.WriteLine($"Região: {configAtual.Regiao} | Idioma: {configAtual.Idioma}");
+            Console.WriteLine($"** Bem-vindo à CultBook! **");
+            Console.WriteLine();
+            Console.WriteLine($"{msgAjuda}");
             Console.WriteLine();
             Console.WriteLine("1 - Login");
             Console.WriteLine("2 - Cadastrar");
