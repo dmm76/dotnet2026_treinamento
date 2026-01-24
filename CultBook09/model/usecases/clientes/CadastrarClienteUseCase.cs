@@ -1,7 +1,7 @@
-using CultBook08.model.entities.clientes;
-using CultBook08.model.interfaces;
+using CultBook09.model.entities.clientes;
+using CultBook09.model.interfaces;
 
-namespace CultBook08.model.usecases.clientes;
+namespace CultBook09.model.usecases.clientes;
 
 public class CadastrarClienteUseCase
 {

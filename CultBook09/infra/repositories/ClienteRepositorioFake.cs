@@ -1,7 +1,7 @@
-using CultBook08.model.entities.clientes;
-using CultBook08.model.interfaces;
+using CultBook09.model.entities.clientes;
+using CultBook09.model.interfaces;
 
-namespace CultBook08.infra.data.repositorios;
+namespace CultBook09.infra.data.repositorios;
 
 public class ClienteRepositorioFake : IClienteRepositorio
 {
