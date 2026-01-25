@@ -36,7 +36,7 @@ public class Pedido
         Situacao = situacao;
 
         Itens = new ItemDePedido[10]; //limite de 10 itens por pedido
-        ValorTotal = 0;
+        ValorTotal = 0m;
         _qtdItens = 0;
 
         if (item == null)
@@ -68,7 +68,7 @@ public class Pedido
 
     public void RecalcularTotal()
     {
-        decimal total = 0;
+        decimal total = 0m;
 
         for (int i = 0; i < _qtdItens; i++)
         {
@@ -98,49 +98,13 @@ public class Pedido
         return false;
     }
 
-    //Remover item do pedido pelo ISBN do livro
-    // public bool RemoverItemPorIsbn(string isbn)
-    // {
-    //     if (string.IsNullOrWhiteSpace(isbn))
-    //         return false;
-
-    //     isbn = isbn.Trim();
-
-    //     int idx = -1;
-
-    //     for (int i = 0; i < _qtdItens; i++)
-    //     {
-    //         if (Itens[i] != null && Itens[i].Livro.Isbn == isbn)
-    //         {
-    //             idx = i;
-    //             break;
-    //         }
-    //     }
-
-    //     if (idx == -1)
-    //         return false;
-
-    //     // "Puxa" os itens para não deixar buraco
-    //     for (int i = idx; i < _qtdItens - 1; i++)
-    //     {
-    //         Itens[i] = Itens[i + 1];
-    //     }
-
-    //     // limpa a última posição e ajusta contador
-    //     Itens[_qtdItens - 1] = null;
-    //     _qtdItens--;
-
-    //     RecalcularTotal();
-    //     return true;
-    // }
-
     public void Mostrar()
     {
         StringBuilder sb = new StringBuilder();
         sb.AppendLine($"Número: {Numero}");
         sb.AppendLine($"Data Emissão: {DataEmissao}");
         sb.AppendLine($"Forma Pagamento: {FormaPagamento}");
-        sb.AppendLine($"Valor Total: {ValorTotal}");
+        sb.AppendLine($"Valor Total: {ValorTotal:C}");
         sb.AppendLine($"Situação: {Situacao}");
         sb.AppendLine("Endereço:");
         sb.AppendLine(EnderecoEntrega != null ? EnderecoEntrega.ToString() : "Sem endereço");
@@ -162,7 +126,7 @@ public class Pedido
         sb.AppendLine($"Número: {Numero}");
         sb.AppendLine($"Data Emissão: {DataEmissao}");
         sb.AppendLine($"Forma Pagamento: {FormaPagamento}");
-        sb.AppendLine($"Valor Total: {ValorTotal:F2}");
+        sb.AppendLine($"Valor Total: {ValorTotal:C}");
         sb.AppendLine($"Situação: {Situacao}");
         sb.AppendLine("Endereço:");
         sb.AppendLine(EnderecoEntrega != null ? EnderecoEntrega.ToString() : "Sem endereço");

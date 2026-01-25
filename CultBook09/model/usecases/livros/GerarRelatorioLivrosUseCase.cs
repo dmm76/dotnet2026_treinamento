@@ -17,7 +17,7 @@ public class GerarRelatorioLivrosUseCase
             sb.AppendLine($"ISBN:      {livro.Isbn}");
             sb.AppendLine($"Título:    {livro.Titulo}");
             sb.AppendLine($"Autor:     {livro.Autor}");
-            sb.AppendLine($"Preço:     R$ {livro.Preco:F2}");
+            sb.AppendLine($"Preço:     {livro.Preco:C}");
             sb.AppendLine($"Estoque:   {livro.Estoque}");
             sb.AppendLine($"Categoria: {livro.Categoria}");
 
@@ -34,7 +34,7 @@ public class GerarRelatorioLivrosUseCase
                 sb.AppendLine($"Peso:      {livro.Peso.Value:F2} kg");
 
             if (livro.ValorFrete.HasValue)
-                sb.AppendLine($"Frete:     R$ {livro.ValorFrete.Value:F2}");
+                sb.AppendLine($"Frete:     R$ {livro.ValorFrete.Value:C}");
 
             sb.AppendLine("================================\n");
         }

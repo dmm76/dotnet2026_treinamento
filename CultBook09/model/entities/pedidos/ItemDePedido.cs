@@ -27,8 +27,8 @@ public class ItemDePedido
         sb.AppendLine("======ITEM DE PEDIDO======");
         sb.AppendLine(Livro.ToString());
         sb.AppendLine($"Quantidade: {Quantidade}");
-        sb.AppendLine($"Preço Unitário: {Preco:F2}");
-        sb.AppendLine($"Subtotal: {Preco * Quantidade:F2}");
+        sb.AppendLine($"Preço Unitário: {Preco:C}");
+        sb.AppendLine($"Subtotal: {Preco * Quantidade:C}");
         sb.AppendLine("------------------------------");
         Console.WriteLine(sb.ToString());
     }
@@ -39,8 +39,8 @@ public class ItemDePedido
         sb.AppendLine("======ITEM DE PEDIDO======");
         sb.AppendLine(Livro.ToString());
         sb.AppendLine($"Quantidade: {Quantidade}");
-        sb.AppendLine($"Preço Unitário: {Preco:F2}");
-        sb.AppendLine($"Subtotal: {Preco * Quantidade:F2}");
+        sb.AppendLine($"Preço Unitário: {Preco:C}");
+        sb.AppendLine($"Subtotal: {Preco * Quantidade:C}");
         sb.AppendLine("------------------------------");
         return sb.ToString();
     }

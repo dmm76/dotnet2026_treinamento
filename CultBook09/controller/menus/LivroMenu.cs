@@ -56,7 +56,7 @@ public static class LivroMenu
             pedidoAtual = inserirLivroCarrinhoUc.Executar(clienteLogado, pedidoAtual, isbn, qtd);
 
             Console.WriteLine("Livro inserido com sucesso!");
-            Console.WriteLine($"Total: R$ {pedidoAtual.GetValorTotal():F2}");
+            Console.WriteLine($"Total: {pedidoAtual.GetValorTotal():C}");
         }
         catch (Exception ex)
         {

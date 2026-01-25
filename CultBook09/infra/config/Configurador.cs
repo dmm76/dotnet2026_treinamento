@@ -8,7 +8,7 @@ public static class Configurador
     // Defaults se o arquivo.json não existir ou der erro
     private const string DEFAULT_REGIAO = "BR";
     private const string DEFAULT_IDIOMA = "pt-BR";
-    private const string DEFAULT_AJUDA_RELATIVO = "infra/config/utils/ajuda.txt";
+    private const string DEFAULT_AJUDA_RELATIVO = "ajuda.txt";
 
     /// <summary>
     /// Carrega a configuração a partir do seu arquivo JSON (ex: arquivo.json).

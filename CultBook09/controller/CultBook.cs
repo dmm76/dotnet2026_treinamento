@@ -83,14 +83,15 @@ class Program
         var configAtual = new ConfiguracaoUsuario(cfg.Regiao, cfg.Idioma);
 
         // aplica cultura
-        string msgAjuda = ajuda.Texto.TrimEnd();
         CultureInfo culturaAtual = AplicarConfiguracao(configAtual);
+        string msgAjuda = ajuda.Texto.TrimEnd();
 
         do
         {
             Console.Clear();
             string dataFormatada = DateTime.Now.ToString("f", culturaAtual);
-            Console.WriteLine($"{dataFormatada.ToUpper()}");
+            Console.WriteLine(dataFormatada.ToUpper(culturaAtual));
+
             Console.WriteLine($"Região: {configAtual.Regiao} | Idioma: {configAtual.Idioma}");
             Console.WriteLine($"** Bem-vindo à CultBook! **");
             Console.WriteLine();
@@ -190,6 +191,9 @@ class Program
                 case OPATIVAR_IDIOMA:
                     configAtual = ConfiguracaoMenu.EscolherRegiaoEIdioma();
                     culturaAtual = AplicarConfiguracao(configAtual);
+
+                    // recarrega a ajuda no idioma novo
+                    msgAjuda = ajuda.Texto.TrimEnd();
 
                     ConfiguracaoLoader.Salvar(
                         CAMINHO_JSON,

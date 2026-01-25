@@ -49,7 +49,7 @@ public abstract class Livro
         sb.AppendLine($"Descrição: {Descricao}");
         sb.AppendLine($"Autor: {Autor}");
         sb.AppendLine($"Estoque: {Estoque}");
-        sb.AppendLine($"Preço: {Preco}");
+        sb.AppendLine($"Preço: {Preco:C}");
         sb.AppendLine($"Figura: {Figura}");
         sb.AppendLine($"DataCadastro: {DataCadastro}");
         sb.AppendLine($"Categoria: {Categoria}");
@@ -66,7 +66,7 @@ public abstract class Livro
         sb.AppendLine($"Descrição: {Descricao}");
         sb.AppendLine($"Autor: {Autor}");
         sb.AppendLine($"Estoque: {Estoque}");
-        sb.AppendLine($"Preço: {Preco:F2}");
+        sb.AppendLine($"Preço: {Preco:C}");
         sb.AppendLine($"Figura: {Figura}");
         sb.AppendLine($"DataCadastro: {DataCadastro}");
         sb.AppendLine($"Categoria: {Categoria}");
