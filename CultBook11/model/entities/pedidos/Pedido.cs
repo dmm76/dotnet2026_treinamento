@@ -1,0 +1,160 @@
+namespace CultBook11.model.entities.pedidos;
+
+using System.Text;
+using CultBook11.model.entities.clientes;
+
+public class Pedido
+{
+    private string Numero { get; set; }
+
+    private string DataEmissao { get; set; }
+
+    private string FormaPagamento { get; set; }
+
+    private decimal ValorTotal { get; set; }
+
+    private string Situacao { get; set; }
+
+    //Atualizacao pra projeto Lab04
+    public Cliente? Cliente { get; set; }
+    public Endereco? EnderecoEntrega { get; set; }
+
+    // alteração pelo LAB11
+    public List<ItemDePedido> Itens { get; private set; } = new();
+
+    public Pedido(
+        string numero,
+        string dataEmissao,
+        string formapagamento,
+        string situacao,
+        ItemDePedido item
+    )
+    {
+        Numero = numero;
+        DataEmissao = dataEmissao;
+        FormaPagamento = formapagamento;
+        Situacao = situacao;
+
+        ValorTotal = 0m;
+
+        if (item == null)
+            throw new ArgumentNullException(nameof(item), "Pedido precisa de pelo menos 1 item.");
+        InserirItem(item);
+    }
+
+    //novos metodo para o lab04
+    public bool InserirItem(ItemDePedido item)
+    {
+        if (item == null)
+            return false;
+
+        Itens.Add(item);
+        ValorTotal += item.Preco * item.Quantidade;
+        return true;
+    }
+
+    public List<ItemDePedido> GetItens() => Itens;
+
+    public int GetQtdItens() => Itens.Count;
+
+    public decimal GetValorTotal() => ValorTotal;
+
+    public void RecalcularTotal()
+    {
+        decimal total = 0m;
+
+        for (int i = 0; i < Itens.Count; i++)
+        {
+            total += Itens[i].Preco * Itens[i].Quantidade;
+        }
+
+        ValorTotal = total;
+    }
+
+    public bool SomarQuantidadePorIsbn(string isbn, int quantidade)
+    {
+        if (string.IsNullOrWhiteSpace(isbn) || quantidade <= 0)
+            return false;
+
+        isbn = isbn.Trim();
+
+        for (int i = 0; i < Itens.Count; i++)
+        {
+            if (Itens[i].Livro.Isbn == isbn)
+            {
+                Itens[i].Quantidade += quantidade;
+                RecalcularTotal();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool RemoverPorIsbn(string isbn)
+    {
+        if (string.IsNullOrWhiteSpace(isbn))
+            return false;
+
+        isbn = isbn.Trim();
+
+        for (int i = 0; i < Itens.Count; i++)
+        {
+            if (Itens[i].Livro.Isbn == isbn)
+            {
+                //se tiver mais de 1, remove só 1 unidade
+                if (Itens[i].Quantidade > 1)
+                {
+                    Itens[i].Quantidade -= 1;
+                }
+                else
+                {
+                    //se era 1, remove o item inteiro
+                    Itens.RemoveAt(i);
+                }
+
+                RecalcularTotal();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void FinalizarCompra(string formaPagamento)
+    {
+        FormaPagamento = string.IsNullOrWhiteSpace(formaPagamento)
+            ? "Não informado"
+            : formaPagamento.Trim();
+        Situacao = "Finalizado";
+
+        // se quiser padronizar data:
+        DataEmissao = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+    }
+
+    public void Mostrar()
+    {
+        Console.WriteLine(ToString());
+    }
+
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine($"Número: {Numero}");
+        sb.AppendLine($"Data Emissão: {DataEmissao}");
+        sb.AppendLine($"Forma Pagamento: {FormaPagamento}");
+        sb.AppendLine($"Valor Total: {ValorTotal:C}");
+        sb.AppendLine($"Situação: {Situacao}");
+        sb.AppendLine("Endereço:");
+        sb.AppendLine(EnderecoEntrega != null ? EnderecoEntrega.ToString() : "Sem endereço");
+        sb.AppendLine("Itens:");
+
+        for (int i = 0; i < Itens.Count; i++)
+        {
+            sb.AppendLine($"--- Item {i + 1} ---");
+            sb.AppendLine(Itens[i].ToString());
+        }
+
+        return sb.ToString().TrimEnd();
+    }
+}
