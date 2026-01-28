@@ -11,6 +11,7 @@ builder.Services.AddControllers();
 // Repo fake/in-memory (singleton para manter estado "Logado")
 builder.Services.AddSingleton<IClienteRepositorio, ClienteRepositorioFake>();
 builder.Services.AddSingleton<ILivroRepositorio, LivroRepositorioFake>();
+builder.Services.AddSingleton<IPedidoRepositorio, PedidoRepositorioFake>();
 
 //Clientes Use Case
 builder.Services.AddScoped<LoginClienteUseCase>();
