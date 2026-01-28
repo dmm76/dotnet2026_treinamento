@@ -5,7 +5,7 @@ using CultBook11.model.entities.clientes;
 using CultBook11.model.entities.pedidos;
 using CultBook11.model.usecases.livros;
 
-public static class LivroMenu
+public static class MenuLivro
 {
     public static void OpcaoBuscarLivros(
         ListarLivrosUseCase listarLivrosUc,
@@ -65,5 +65,40 @@ public static class LivroMenu
 
         Console.ReadKey();
         return pedidoAtual;
+    }
+
+    public static void OpcaoRemoverLivro(
+        Cliente? clienteLogado,
+        Pedido? pedidoAtual,
+        RemoverLivroCarrinhoUseCase removerUc
+    )
+    {
+        try
+        {
+            if (clienteLogado == null || !clienteLogado.Logado)
+                throw new Exception("Você precisa estar logado para remover itens do carrinho.");
+
+            if (pedidoAtual == null || pedidoAtual.GetQtdItens() == 0)
+                throw new Exception("Carrinho vazio.");
+
+            Console.Clear();
+            Console.WriteLine("=== REMOVER LIVRO DO CARRINHO ===");
+            pedidoAtual.Mostrar();
+
+            Console.Write("\nDigite o ISBN do livro para remover (1 unidade): ");
+            string? isbn = Console.ReadLine();
+
+            removerUc.Executar(pedidoAtual, isbn);
+
+            Console.WriteLine("Livro removido do carrinho!");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            Console.ReadKey();
+        }
     }
 }

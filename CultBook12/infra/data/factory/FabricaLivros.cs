@@ -1,6 +1,6 @@
-using CultBook11.model.entities.livros;
+using CultBook12.model.entities.livros;
 
-namespace CultBook11.infra.data.factory;
+namespace CultBook12.infra.data.factory;
 
 public class FabricaLivros
 {
@@ -148,6 +148,7 @@ public class FabricaLivros
         ),
     };
 
+    //não esta sendo usado
     public static List<Livro> GetLivros()
     {
         return livros;

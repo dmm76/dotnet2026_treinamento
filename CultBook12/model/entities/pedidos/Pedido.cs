@@ -1,7 +1,7 @@
-namespace CultBook11.model.entities.pedidos;
+namespace CultBook12.model.entities.pedidos;
 
 using System.Text;
-using CultBook11.model.entities.clientes;
+using CultBook12.model.entities.clientes;
 
 public class Pedido
 {
